@@ -14,5 +14,5 @@ Simple Python DockerFile to test connectivity to URLs and Log Status Code
  ##### Example:
 
 ```
- docker run -d -v /log:/log ghcr.io/tech1ndex/py-connect-test:latest "https://test.tech1ndex.ca" "https://test.tech1ndex.ca/test"
+ docker run -d -v /log:/log ghcr.io/tech1ndex/py-connect-test:latest "https://example.com" "https://example.com/test"
  ```
