@@ -11,8 +11,8 @@ warnings.filterwarnings('ignore')
 # While loop to run indefinitely 
 while True:
     
-    #Sleep for 5 Seconds in between checks
-    time.sleep(15)
+    #Sleep for 30 Seconds in between checks
+    time.sleep(30)
     
     #Get Current Timestamp
     now = datetime.now()
