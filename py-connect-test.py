@@ -9,12 +9,10 @@ import sys
 # Suppress all warnings
 warnings.filterwarnings('ignore')
 
-
 # While loop to run indefinitely 
 while True:
     
-    #Sleep for 30 Seconds in between checks
-    time.sleep(30)
+
     
     #Get Current Timestamp
     now = datetime.now()
@@ -27,10 +25,16 @@ while True:
         try:
             uptime_check=requests.get(u)
             uptime_check.raise_for_status()
+            print(f"{current_time} - {u} - Success")
         except requests.exceptions.RequestException as err:
         # Write to file if connection times out to URL
             uptime_status_code = str(uptime_check.status_code)
-            logfile = open("/log/py-connect-test.log", "a") #adding local path for testing purposes 
+            print(f"{current_time} - {u} - ERROR - Response: {uptime_status_code}")
+        # Write error to logfile if parameter was defined    
+            logfile = open(f"/log/py-connect-test.log", "a") #adding local path for testing purposes 
             logfile.write(f"{current_time} - {u} - ERROR - Response: {uptime_status_code}")
             logfile.write("\n")
             logfile.close()
+                
+    #Sleep for 30 Seconds in between checks
+    time.sleep(30)
