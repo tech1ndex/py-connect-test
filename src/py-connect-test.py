@@ -5,7 +5,7 @@ from datetime import datetime
 import time
 import warnings
 import argparse
-
+import socket
 # Parse Arguments
 parser = argparse.ArgumentParser(description='A simple HTTP connection tester written in Python.')
 parser.add_argument("-u", "--urls", help="A list of URLs to test against", nargs='*')
@@ -34,7 +34,9 @@ def httpTest():
         uptime_check=requests.get(u)
         uptime_check.raise_for_status()
         print(f"{current_time} - {u} - Success")
-    except requests.exceptions.RequestException as err:
+    except socket.error as exc:
+        print(f"{current_time} - {u} - ERROR - Socket Issue - Check DNS/URL Provided is Valid")
+    except (requests.exceptions.RequestException) as err:
         # Write to file if connection times out to URL
         uptime_status_code = str(uptime_check.status_code)
         print(f"{current_time} - {u} - ERROR - Response: {uptime_status_code}")
