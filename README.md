@@ -1,11 +1,16 @@
 # py-connect-test
-Simple Python DockerFile to test connectivity to URLs and Log Status Code
+Simple Python container to test connectivity to URLs and log Status Code.
 
 ### Usage
 
+```
+docker run -d -v /log:/log ghcr.io/tech1ndex/py-connect-test:<tag> --log --urls "https://example.com" "https://example.com/test"
+```
+
+- `-v` will need to be passed if you plan to log to disk
+
 List of `--urls` will need to be passed to Docker run/compose, the script will accept as many as required.
 
-usage: py-connect-test.py [-h] [-u [URLS ...]] [-l]
 
 ##### options:
 
@@ -19,19 +24,18 @@ usage: py-connect-test.py [-h] [-u [URLS ...]] [-l]
 
   `-i INTERVAL`, `--interval INTERVAL` - Interval at which to run the test in seconds, default value is 30
 
-### Docker
+### Dockerfile
 
-- `-v` will need to be passed if you plan to log to disk
-- Provided DockerFile can also be built as is and run
+- Provided DockerFile can also be built to your architecture if not already available.
 
-##### Docker Pull: 
+##### Architecture: 
+
+Current available versions are:
+  - amd64
+  - arm64(latest)
+
+They are tagged accordingly and can be pulled using the architecture tag. 
 
 ```
-docker pull ghcr.io/tech1ndex/py-connect-test:amd64
-```
-
-##### Example:
-
-```
-docker run -d -v /log:/log ghcr.io/tech1ndex/py-connect-test:latest --log --urls "https://example.com" "https://example.com/test"
+docker pull ghcr.io/tech1ndex/py-connect-test:<tag>
 ```
