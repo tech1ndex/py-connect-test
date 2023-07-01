@@ -21,11 +21,17 @@ usage: py-connect-test.py [-h] [-u [URLS ...]] [-l]
 
 ### Docker
 
-- Provided DockerFile can be built as is and run
 - `-v` will need to be passed if you plan to log to disk
+- Provided DockerFile can also be built as is and run
 
- ##### Example:
+##### Docker Pull: 
 
 ```
- docker run -d -v /log:/log ghcr.io/tech1ndex/py-connect-test:latest --urls "https://example.com" "https://example.com/test"
- ```
+docker pull ghcr.io/tech1ndex/py-connect-test:amd64
+```
+
+##### Example:
+
+```
+docker run -d -v /log:/log ghcr.io/tech1ndex/py-connect-test:latest --log --urls "https://example.com" "https://example.com/test"
+```
