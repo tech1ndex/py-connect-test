@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-defaults:
- run:
-  working-directory: ./src
-
 jobs:
   buildx:
     runs-on: ubuntu-latest
@@ -37,7 +33,7 @@ jobs:
         name: Build and Push Image
         uses: docker/build-push-action@v3
         with:
-          context: docker
+          context: .
           tags: ghcr.io/tech1ndex/py-connect-test:latest
           platforms: linux/amd64,linux/arm64
           push: false
