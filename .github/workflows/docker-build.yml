@@ -1,10 +1,7 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  release:
 
 jobs:
   buildx:
@@ -36,7 +33,7 @@ jobs:
           context: .
           tags: ghcr.io/tech1ndex/py-connect-test:latest
           platforms: linux/arm64
-          push: false
+          push: true
       - 
          name: Build and Push amd64
          uses: docker/build-push-action@v3
@@ -44,4 +41,4 @@ jobs:
           context: .
           tags: ghcr.io/tech1ndex/py-connect-test:amd64
           platforms: linux/amd64
-          push: false
+          push: true
