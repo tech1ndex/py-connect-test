@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   release:
-
+    types: [published]
 jobs:
   buildx:
     runs-on: ubuntu-latest
@@ -31,7 +31,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          tags: ghcr.io/tech1ndex/py-connect-test:latest
+          tags: 
+            ghcr.io/tech1ndex/py-connect-test:${{ github.event.release.tag_name }}-arm64
           platforms: linux/arm64
           push: true
       - 
@@ -39,6 +40,6 @@ jobs:
          uses: docker/build-push-action@v3
          with:
           context: .
-          tags: ghcr.io/tech1ndex/py-connect-test:amd64
+          tags: ghcr.io/tech1ndex/py-connect-test:${{ github.event.release.tag_name }}-amd64
           platforms: linux/amd64
           push: true
