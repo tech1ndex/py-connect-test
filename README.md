@@ -32,9 +32,9 @@ List of `--urls` will need to be passed to Docker run/compose, the script will a
 
 Current available versions are:
   - amd64
-  - arm64(latest)
+  - arm64
 
-They are tagged accordingly and can be pulled using the architecture tag. 
+They are version tagged accordingly and can be pulled using `version-arch` tag format.
 
 ```
 docker pull ghcr.io/tech1ndex/py-connect-test:<tag>
