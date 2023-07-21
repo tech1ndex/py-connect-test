@@ -30,10 +30,18 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
           registry: ghcr.io
       - 
-        name: Build and Push Image
+        name: Build and Push arm64
         uses: docker/build-push-action@v3
         with:
           context: .
           tags: ghcr.io/tech1ndex/py-connect-test:latest
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
+          push: false
+      - 
+         name: Build and Push amd64
+         uses: docker/build-push-action@v3
+         with:
+          context: .
+          tags: ghcr.io/tech1ndex/py-connect-test:amd64
+          platforms: linux/amd64
           push: false
