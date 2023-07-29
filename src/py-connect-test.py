@@ -6,6 +6,7 @@ import time
 import warnings
 import argparse
 import socket
+
 # Parse Arguments
 parser = argparse.ArgumentParser(description='A simple HTTP connection tester written in Python.')
 parser.add_argument("-u", "--urls", help="A list of URLs to test against", nargs='*')
@@ -34,12 +35,14 @@ def httpTest():
     try:
         if(args.sslverify == False):
             uptime_check=requests.get(u, verify=False)
+            uptime_check.raise_for_status()
+            print(f"{current_time} - {u} - Success")
         else:
             uptime_check=requests.get(u)
             uptime_check.raise_for_status()
             print(f"{current_time} - {u} - Success")
     except socket.error as exc:
-        print(f"{current_time} - {u} - ERROR - Socket Issue")
+        print(f"{current_time} - {u} - ERROR - Socket Issue:")
         print(exc)
     except (requests.exceptions.RequestException) as err:
         # Write to file if connection times out to URL
