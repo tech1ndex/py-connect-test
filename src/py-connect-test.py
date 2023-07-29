@@ -33,7 +33,7 @@ def httpTest():
     current_time = now.strftime("%m/%d/%Y - %H:%M:%S")
 # Get Status code from each URL passed in on the commandline    
     try:
-        if(args.sslverify == False):
+        if("args.ssl-verify" == False):
             uptime_check=requests.get(u, verify=False)
             uptime_check.raise_for_status()
             print(f"{current_time} - {u} - Success")
