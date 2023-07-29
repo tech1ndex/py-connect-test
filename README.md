@@ -26,6 +26,8 @@ List of `--urls` will need to be passed to Docker run/compose, the script will a
 
   `-i INTERVAL`, `--interval INTERVAL` - Interval at which to run the test in seconds, default value is 30
 
+  `--ssl-verify`, `--no-ssl-verify` - Use to toggle ssl certificate validation, default is to verify.
+
   Note: `-l` and `-p` are dependent on each other. 
 
 ##### Architecture: 
