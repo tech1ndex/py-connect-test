@@ -44,14 +44,9 @@ def httpTest():
     except socket.error as exc:
         print(f"{current_time} - {u} - ERROR - Socket Issue:")
         print(exc)
-    except (requests.exceptions.RequestException) as err:
-        # Write to file if connection times out to URL
-        uptime_status_code = str(uptime_check.status_code)
-        print(f"{current_time} - {u} - ERROR - Response: {uptime_status_code}")
-        # Write error to logfile if parameter was defined
         if args.log == True:
             logfile = open(f"{args.logpath}/py-connect-test.log", "a") #adding local path for testing purposes 
-            logfile.write(f"{current_time} - {u} - ERROR - Response: {uptime_status_code}")
+            logfile.write(f"{current_time} - {u} - ERROR - Response: {exc}")
             logfile.write("\n")
             logfile.close()
 
