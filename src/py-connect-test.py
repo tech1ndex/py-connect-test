@@ -33,6 +33,7 @@ def httpTest():
 # Get Status code from each URL passed in on the commandline    
     try:
         if(args.sslverify == False):
+            print(args.sslverify)
             uptime_check=requests.get(u, verify=False)
         else:
             uptime_check=requests.get(u)
