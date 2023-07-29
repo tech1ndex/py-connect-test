@@ -13,7 +13,7 @@ parser.add_argument("-u", "--urls", help="A list of URLs to test against", nargs
 parser.add_argument("-l", "--log", help="Use --log if you want output logged to a file, default is stdout", action="store_true")
 parser.add_argument("-p", "--logpath", help="Directory path to store logfile", default="--")
 parser.add_argument("-i", "--interval", help="Interval at which to run the test in seconds, default value is 30", type=int, default=30)
-parser.add_argument("--ssl-verify", help="Use to enable or disable ssl certificate validation, default is True", action=argparse.BooleanOptionalAction)
+parser.add_argument("--ssl-verify", help="Use to toggle ssl certificate validation, default is to verify.", action=argparse.BooleanOptionalAction)
 args = parser.parse_args()
 
 # Logic to handle log parameters
