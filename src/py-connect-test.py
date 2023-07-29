@@ -39,6 +39,7 @@ def httpTest():
             uptime_check.raise_for_status()
             print(f"{current_time} - {u} - Success")
     except socket.error as exc:
+        print(exc)
         print(f"{current_time} - {u} - ERROR - Socket Issue - Check DNS/URL Provided is Valid")
     except (requests.exceptions.RequestException) as err:
         # Write to file if connection times out to URL
