@@ -33,15 +33,14 @@ def httpTest():
 # Get Status code from each URL passed in on the commandline    
     try:
         if(args.sslverify == False):
-            print(args.sslverify)
             uptime_check=requests.get(u, verify=False)
         else:
             uptime_check=requests.get(u)
             uptime_check.raise_for_status()
             print(f"{current_time} - {u} - Success")
     except socket.error as exc:
+        print(f"{current_time} - {u} - ERROR - Socket Issue")
         print(exc)
-        print(f"{current_time} - {u} - ERROR - Socket Issue - Check DNS/URL Provided is Valid")
     except (requests.exceptions.RequestException) as err:
         # Write to file if connection times out to URL
         uptime_status_code = str(uptime_check.status_code)
