@@ -13,7 +13,7 @@ parser.add_argument("-u", "--urls", help="A list of URLs to test against", nargs
 parser.add_argument("-l", "--log", help="Use --log if you want output logged to a file, default is stdout", action="store_true")
 parser.add_argument("-p", "--logpath", help="Directory path to store logfile", default="--")
 parser.add_argument("-i", "--interval", help="Interval at which to run the test in seconds, default value is 30", type=int, default=30)
-parser.add_argument("--certcheck", help="Use to toggle ssl certificate validation, default is to verify.", action=argparse.BooleanOptionalAction)
+parser.add_argument("--certcheck", help="Use to toggle ssl certificate validation, enabled by default", action=argparse.BooleanOptionalAction)
 args = parser.parse_args()
 
 # Logic to handle log parameters
@@ -41,6 +41,7 @@ def httpTest():
             uptime_check=requests.get(u)
             uptime_check.raise_for_status()
             print(f"{current_time} - {u} - Success")
+    # Catch Exceptions
     except socket.error as exc:
         print(f"{current_time} - {u} - ERROR - Connection Issue:")
         print(exc)
