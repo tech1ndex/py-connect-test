@@ -2,7 +2,6 @@
 
 import requests
 from datetime import datetime
-import time
 import warnings
 import argparse
 import socket
@@ -11,7 +10,8 @@ import json
 # Parse Arguments
 parser = argparse.ArgumentParser(description='A simple HTTP connection tester written in Python.')
 parser.add_argument("-u", "--urls", help="A list of URLs to test against", nargs='*')
-parser.add_argument("-w", "--webhook-url", help="A URL to send the payload to", nargs='*')
+parser.add_argument("-w", "--webhook-url", help="A URL to send Alerts too", nargs='*')
+parser.add_argument("-a", "--alerts", help="Use to enable alerting, disabled by default", action="store_true")
 parser.add_argument("-l", "--log", help="Use --log if you want output logged to a file, default is stdout", action="store_true")
 parser.add_argument("-p", "--logpath", help="Directory path to store logfile", default="--")
 parser.add_argument("--certcheck", help="Use to toggle ssl certificate validation, enabled by default", action=argparse.BooleanOptionalAction)
@@ -53,9 +53,9 @@ def httpTest():
             logfile.write("\n")
             logfile.close()
             
-        if args.webhook_url:
+        if args.alerts == True:
             webhook_url = args.webhook_url
-            with open(f"{args.logpath}/payload.json") as file:
+            with open("payload.json") as file:
                 payload = json.load(file)
             try:
                 response = requests.post(webhook_url, json=payload)
