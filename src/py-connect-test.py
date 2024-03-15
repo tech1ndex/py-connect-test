@@ -6,13 +6,14 @@ import time
 import warnings
 import argparse
 import socket
+import json
 
 # Parse Arguments
 parser = argparse.ArgumentParser(description='A simple HTTP connection tester written in Python.')
 parser.add_argument("-u", "--urls", help="A list of URLs to test against", nargs='*')
+parser.add_argument("-w", "--webhook-url", help="A URL to send the payload to", nargs='*')
 parser.add_argument("-l", "--log", help="Use --log if you want output logged to a file, default is stdout", action="store_true")
 parser.add_argument("-p", "--logpath", help="Directory path to store logfile", default="--")
-parser.add_argument("-i", "--interval", help="Interval at which to run the test in seconds, default value is 30", type=int, default=30)
 parser.add_argument("--certcheck", help="Use to toggle ssl certificate validation, enabled by default", action=argparse.BooleanOptionalAction)
 args = parser.parse_args()
 
@@ -45,20 +46,26 @@ def httpTest():
     except socket.error as exc:
         print(f"{current_time} - {u} - ERROR - Connection Issue:")
         print(exc)
+        
         if args.log == True:
-            logfile = open(f"{args.logpath}/py-connect-test.log", "a") #adding local path for testing purposes 
+            logfile = open(f"{args.logpath}/py-connect-test.log", "a")
             logfile.write(f"{current_time} - {u} - ERROR - Connection Issue: {exc}")
             logfile.write("\n")
             logfile.close()
-
+            
+        if args.webhook_url:
+            webhook_url = args.webhook_url
+            with open(f"{args.logpath}/payload.json") as file:
+                payload = json.load(file)
+            try:
+                response = requests.post(webhook_url, json=payload)
+                response.raise_for_status()
+            except requests.exceptions.RequestException as e:
+                print(f"{current_time} - {u} - ERROR - Failed to call webhook:")
+                print(e)
 # Main Block
-while True:
-    if len(args.urls) == 0:
-        print("No URL Received, please use -h to see list of parameters")
-        break
-    # Call httpTest func
-    for u in args.urls:
-      httpTest()
-                
-    #Sleep for time defined in Interval flag
-    time.sleep(args.interval)
+if len(args.urls) == 0:
+    print("No URL Received, please use -h to see list of parameters")
+# Call httpTest func
+for u in args.urls:
+    httpTest()
