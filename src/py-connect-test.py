@@ -55,7 +55,7 @@ def httpTest():
             
         if args.alerts == True:
             webhook_url = args.webhook_url
-            with open("payload.json") as file:
+            with open("/tmp/payload.json") as file:
                 payload = json.load(file)
             try:
                 response = requests.post(webhook_url, json=payload)
