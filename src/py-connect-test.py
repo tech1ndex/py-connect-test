@@ -59,6 +59,7 @@ def httpTest():
                 payload = json.load(file)
             try:
                 response = requests.post(webhook_url, json=payload)
+                print(payload)
                 response.raise_for_status()
             except requests.exceptions.RequestException as e:
                 print(f"{current_time} - {u} - ERROR - Failed to call webhook:")
