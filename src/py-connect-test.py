@@ -2,6 +2,7 @@
 
 import requests
 from datetime import datetime
+import time
 import warnings
 import argparse
 import socket
@@ -70,3 +71,4 @@ if len(args.urls) == 0:
 # Call httpTest func
 for u in args.urls:
     httpTest()
+    time.sleep(180)
