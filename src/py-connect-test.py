@@ -11,7 +11,7 @@ import json
 # Parse Arguments
 parser = argparse.ArgumentParser(description='A simple HTTP connection tester written in Python.')
 parser.add_argument("-u", "--urls", help="A list of URLs to test against", nargs='*')
-parser.add_argument("-w", "--webhook-url", help="A URL to send Alerts too", nargs='*')
+parser.add_argument("-am", "--alertmanager-url", help="A URL to send Alerts too", nargs='*')
 parser.add_argument("-a", "--alerts", help="Use to enable alerting, disabled by default", action="store_true")
 parser.add_argument("-l", "--log", help="Use --log if you want output logged to a file, default is stdout", action="store_true")
 parser.add_argument("-p", "--logpath", help="Directory path to store logfile", default="--")
@@ -55,16 +55,28 @@ def httpTest():
             logfile.close()
             
         if args.alerts == True:
+            # Define the payload dictionary
+            payload = {
+                "status": "firing",
+                "labels": {"alertname": "py-connect-test"}
+            }
             webhook_url = str(args.webhook_url)
-            with open("/tmp/payload.json") as file:
-                payload = json.load(file)
+            # Set Sev and Description
+            payload["labels"]["description"] = exc
+            payload["labels"]["severity"] = "critical"
+            # Try to Send Payload to Alertmanager Webhook
             try:
                 response = requests.post(webhook_url, json=payload)
-                print(payload)
+                print("Payload sent:", json.dumps(payload))
                 response.raise_for_status()
+                print("Request successful! Status:", response.status_code)
+                
             except requests.exceptions.RequestException as e:
                 print(f"{current_time} - {u} - ERROR - Failed to call webhook:")
                 print(e)
+            except Exception as e:
+                print("Unexpected error:", e)
+
 # Main Block
 if len(args.urls) == 0:
     print("No URL Received, please use -h to see list of parameters")

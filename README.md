@@ -28,9 +28,11 @@ List of `--urls` will need to be passed to Docker run/compose, the script will a
 
   `--certcheck`, `--no-certcheck` - Use to toggle ssl certificate validation, enabled by default.
 
-  `-w`, `--webhook-url URL` - A webhook URL that accepts a POST request to create an Alert. (ie. Alertmanager)
+  `-am`, `--alertmanager-url URL` - Alertmanger URL that accepts a POST request to create an Alert.
 
-  Note: `-l` and `-p` are dependent on each other. 
+  `-am`, `--alertmanager-url URL` - Alertmanger URL that accepts a POST request to create an Alert.
+
+   Note: BOTH `-l` and `-p` AND `a` and `am` are dependent on each other. 
 
 ##### Architecture: 
 
