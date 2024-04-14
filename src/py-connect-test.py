@@ -11,7 +11,7 @@ import json
 # Parse Arguments
 parser = argparse.ArgumentParser(description='A simple HTTP connection tester written in Python.')
 parser.add_argument("-u", "--urls", help="A list of URLs to test against", nargs='*')
-parser.add_argument("-am", "--alertmanager-url", help="A URL to send Alerts too", nargs='*')
+parser.add_argument("-am", "--alertmanager", help="A URL to send Alerts too", nargs='*')
 parser.add_argument("-a", "--alerts", help="Use to enable alerting, disabled by default", action="store_true")
 parser.add_argument("-l", "--log", help="Use --log if you want output logged to a file, default is stdout", action="store_true")
 parser.add_argument("-p", "--logpath", help="Directory path to store logfile", default="--")
@@ -60,9 +60,9 @@ def httpTest():
                 "status": "firing",
                 "labels": {"alertname": "py-connect-test"}
             }
-            webhook_url = str(args.webhook_url)
+            webhook_url = str(args.alertmanager)
             # Set Sev and Description
-            payload["labels"]["description"] = exc
+            payload["labels"]["description"] = "Could not connect to URL"
             payload["labels"]["severity"] = "critical"
             # Try to Send Payload to Alertmanager Webhook
             try:
