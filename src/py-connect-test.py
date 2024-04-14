@@ -71,4 +71,4 @@ if len(args.urls) == 0:
 # Call httpTest func
 for u in args.urls:
     httpTest()
-    time.sleep(180)
+    time.sleep(30)
