@@ -1,4 +1,3 @@
-import json
 from http import HTTPStatus
 
 import typer
@@ -28,14 +27,14 @@ def test(
 ):
     http_test = HttpTest(insecure=insecure)
     status_code = http_test.get_status_code()
-    if status_code != HTTPStatus.OK:
-        logger.error("Error: %s", {status_code})
+    if status_code != HTTPStatus.OK.value:
+        logger.error("Error: %s", status_code)
         return
-    logger.success("Success: %s", {status_code})
+    logger.success("Connected successfully: {}", status_code)
 
     if alerts:
         alert = http_test.post_alerts()
-        logger.success(json.dumps(alert, indent=2))
+        logger.success("Alert response: {}", alert.status_code)
 
 
 if __name__ == "__main__":
