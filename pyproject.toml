@@ -103,9 +103,8 @@ testpaths = [
     "tests",
 ]
 
-
 [tool.ruff]
-select = [
+extend-select = [
     "A",    # Builtins
     "ANN",  # Annotations
     "ARG",  # Unused arguments
@@ -125,14 +124,12 @@ select = [
     "F",    # Pyflakes
     "FA",   # __future__ annotations
     "FLY",  # F-strings
-    # "FURB", # Refurb
     "G",    # Logging format
     "I",    # Isort
     "ICN",  # Import conventions
     "INP",  # Disallow PEP-420 (Implicit namespace packages)
     "INT",  # gettext
     "ISC",  # Implicit str concat
-    # "LOG",  # Logging
     "N",    # PEP-8 Naming
     "NPY",  # Numpy
     "PERF", # Unnecessary performance costs
@@ -159,7 +156,7 @@ select = [
     "W",    # Warnings
     "YTT",  # sys.version
 ]
-ignore = [
+extend-ignore = [
     "D203",    # One blank line before class docstring
     "D212",    # Multi-line summary first line
     "PLR0913", # Too many arguments
@@ -176,8 +173,9 @@ ignore = [
     "ANN201",  # Missing type annotation for self in method
     "ANN202",  # Missing type annotation for cls in classmethod
     "ANN204",  # Missing type annotation for magic method
-    "PTH123", # Use of os.path for path manipulation
+    "PTH123",  # Use of os.path for path manipulation
 ]
+
 ignore-init-module-imports = true
 line-length = 120
 # preview = true
