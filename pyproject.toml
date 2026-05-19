@@ -60,7 +60,7 @@ rich="^14.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.13.0"
+mypy = "^2.1.0"
 
 
 [tool.poetry.group.linters]
@@ -233,3 +233,6 @@ commands =
     poetry run pytest
     poetry run coverage report
 """
+
+[tool.mypy]
+ignore_missing_imports = true
