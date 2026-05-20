@@ -1,4 +1,6 @@
-from http import HTTPStatus
+from __future__ import annotations
+
+import sys
 
 import typer
 
@@ -8,6 +10,13 @@ from py_connect_test.setup_logger import setup_logger
 app = typer.Typer(help="Http Connection Test")
 
 logger = setup_logger()
+
+
+@app.callback(invoke_without_command=True)
+def callback(ctx: typer.Context) -> None:
+    if ctx.invoked_subcommand is None:
+        typer.echo(ctx.get_help())
+        sys.exit(0)
 
 
 @app.command()
@@ -27,15 +36,18 @@ def test(
 ):
     http_test = HttpTest(insecure=insecure)
     status_code = http_test.get_status_code()
-    if status_code != HTTPStatus.OK.value:
-        logger.error("Error: %s", status_code)
-        return
-    logger.success("Connected successfully: {}", status_code)
+    logger.success("Connected: {}", status_code)
 
     if alerts:
         alert = http_test.post_alerts()
         logger.success("Alert response: {}", alert.status_code)
 
 
-if __name__ == "__main__":
+def main() -> None:
     app()
+
+
+if __name__ == "__main__":
+    main()
+
+

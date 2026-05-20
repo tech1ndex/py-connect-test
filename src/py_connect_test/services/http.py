@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 
 import httpx
@@ -14,17 +16,24 @@ class HttpTest:
         self.alert_settings = AlertSettings()
         self.insecure = insecure
 
-    def get(self) -> httpx.Response:
+    def get(self) -> httpx.Response | None:
         with httpx.Client(
             base_url=self.http_settings.url,
             verify=not self.insecure,
         ) as client:
-            response = client.get("/")
-            response.raise_for_status()
-            return response
+            logger.info("Connecting to {}", self.http_settings.url)
+            try:
+                response = client.get("/")
+                response.raise_for_status()
+                return response
+            except httpx.RequestError as e:
+                logger.error("Error connecting to {}: {}", self.http_settings.url, e)
+                return None
 
-    def get_status_code(self) -> int:
+    def get_status_code(self) -> int | None:
         response = self.get()
+        if not response:
+            return None
         return response.status_code
 
     def post_alerts(self) -> httpx.Response:
@@ -38,6 +47,7 @@ class HttpTest:
             response = client.post("/", json=payload)
             response.raise_for_status()
             logger.success(
-                f"Alert posted successfully to {self.alert_settings.webhook_url}",
+                "Alert posted successfully to {}",
+                self.alert_settings.webhook_url,
             )
             return response
