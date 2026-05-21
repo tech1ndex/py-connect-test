@@ -1,3 +1,6 @@
+[![PyPI version](https://badge.fury.io/py/py-connect-test.svg)](https://pypi.org/project/py-connect-test/)
+[![Python 3.14+](https://img.shields.io/badge/python-3.14+-blue.svg)](https://www.python.org/downloads/)
+
 # py-connect-test
 
 A simple Python package to test HTTP connectivity to URLs and retrieve status codes. Built with Typer CLI framework and httpx.
@@ -8,6 +11,13 @@ A simple Python package to test HTTP connectivity to URLs and retrieve status co
 - Poetry (for dependency management)
 
 ## Installation
+
+### From PyPI
+
+```bash
+pip install py-connect-test
+```
+...
 
 ### From Source
 
@@ -24,13 +34,7 @@ poetry install
 Test connectivity to the default URL (https://ifconfig.me):
 
 ```bash
-poetry run py-connect-test test
-```
-
-Or directly:
-
-```bash
-python -m py_connect_test.main test
+py-connect-test test
 ```
 
 ### Options
@@ -38,29 +42,29 @@ python -m py_connect_test.main test
 #### Bypass SSL Certificate Validation
 
 ```bash
-poetry run py-connect-test test --insecure
+py-connect-test test --insecure
 # or
-poetry run py-connect-test test -i
+py-connect-test test -i
 ```
 
 #### Send Alerts to Webhook
 
 ```bash
-poetry run py-connect-test test --alerts
+py-connect-test test --alerts
 # or
-poetry run py-connect-test test -a
+py-connect-test test -a
 ```
 
 #### Combined Options
 
 ```bash
-poetry run py-connect-test test --insecure --alerts
+py-connect-test test --insecure --alerts
 ```
 
 ### View Help
 
 ```bash
-poetry run py-connect-test test --help
+py-connect-test test --help
 ```
 
 ## Docker Usage
