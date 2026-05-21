@@ -56,6 +56,7 @@ class TestHttpTestGet:
         mock_client_class.assert_called_once_with(
             base_url=http_test_instance.http_settings.url,
             verify=True,
+            follow_redirects=True,
         )
 
     @patch("py_connect_test.services.http.httpx.Client")
@@ -73,6 +74,7 @@ class TestHttpTestGet:
             mock_client_class.assert_called_once_with(
                 base_url=http_test.http_settings.url,
                 verify=False,
+                follow_redirects=True,
             )
 
     @patch("py_connect_test.services.http.httpx.Client")
