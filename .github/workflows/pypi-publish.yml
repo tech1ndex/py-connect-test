@@ -3,15 +3,14 @@ name: Publish to PyPI
 on:
   release:
     types: [published]
+
 jobs:
   pypi-publish:
     name: Upload release to PyPI
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/py-connect-test/
     permissions:
       id-token: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -20,11 +19,19 @@ jobs:
         with:
           python-version: "3.14"
 
-      - name: Install build tools
-        run: pip install build
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: latest
+          virtualenvs-create: false
+
+      - name: Sync version with release tag
+        run: |
+          TAG=${GITHUB_REF_NAME#v}
+          poetry version "$TAG"
 
       - name: Build distributions
-        run: python -m build
+        run: poetry build
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
