@@ -1,11 +1,10 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class HttpSettings(BaseSettings):
-    url: str = "https://ifconfig.me"
+    model_config = SettingsConfigDict(env_prefix="PY_CONNECT_TEST_")
 
-    class Config:
-        prefix = "py_connect_test"
+    url: str = "https://ifconfig.me"
 
 
 class AlertSettings(BaseSettings):

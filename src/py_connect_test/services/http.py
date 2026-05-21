@@ -20,6 +20,7 @@ class HttpTest:
         with httpx.Client(
             base_url=self.http_settings.url,
             verify=not self.insecure,
+            follow_redirects=True,
         ) as client:
             logger.info("Connecting to {}", self.http_settings.url)
             try:
