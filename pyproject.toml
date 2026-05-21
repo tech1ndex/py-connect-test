@@ -14,7 +14,7 @@ omit = [
 
 [tool.poetry]
 name = "py_connect_test"
-version = "2.1.1"
+version = "2.2.0"
 description = "A simple Python package for testing connectivity."
 
 packages = [
