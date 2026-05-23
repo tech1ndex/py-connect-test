@@ -1,0 +1,38 @@
+{
+  "receiver": "webhook",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "alertname": "ServiceDown",
+        "severity": "critical",
+        "service": "my-service",
+        "instance": "my-service:8080",
+        "job": "py-connect-test",
+        "environment": "production"
+      },
+      "annotations": {
+        "summary": "Service my-service is unreachable",
+        "description": "Connectivity check to my-service:8080 failed. The service may be down or unreachable."
+      },
+      "startsAt": "2026-05-23T00:00:00Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "http://prometheus.local/graph"
+    }
+  ],
+  "groupLabels": {
+    "alertname": "ServiceDown"
+  },
+  "commonLabels": {
+    "alertname": "ServiceDown",
+    "severity": "critical",
+    "service": "my-service"
+  },
+  "commonAnnotations": {
+    "summary": "Service my-service is unreachable"
+  },
+  "externalURL": "http://alertmanager.local",
+  "version": "4",
+  "groupKey": "{}:{alertname=\"ServiceDown\"}"
+}
