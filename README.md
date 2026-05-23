@@ -3,7 +3,8 @@
 
 # py-connect-test
 
-A simple Python package to test HTTP connectivity to URLs and retrieve status codes. Built with Typer CLI framework and httpx.
+A simple Python package to test basic HTTP connectivity to URLs. Built with Typer CLI framework and httpx.
+Can be used for monitoring, debugging, or as a health check tool in various environments such as ntfy, healchecks.io, or custom monitoring solutions.
 
 ## Prerequisites
 
@@ -31,7 +32,7 @@ poetry install
 
 ### Basic Usage
 
-Test connectivity to the default URL (https://ifconfig.me):
+Test connectivity to a URL specified in the `PY_CONNECT_TEST_URL` environment variable:
 
 ```bash
 py-connect-test test
@@ -79,7 +80,7 @@ docker build -t py-connect-test:latest .
 
 ```bash
 docker run -d \
-  -e HTTP_URL=https://example.com \
+  -e PY_CONNECT_TEST_URL=https://example.com \
   -e WEBHOOK_URL=http://prometheus.local \
   ghcr.io/tech1ndex/py-connect-test:latest
 ```
@@ -102,17 +103,16 @@ Available architectures:
 Pull specific architecture:
 
 ```bash
-docker pull ghcr.io/tech1ndex/py-connect-test:latest-amd64
-docker pull ghcr.io/tech1ndex/py-connect-test:latest-arm64
+docker pull ghcr.io/tech1ndex/py-connect-test:latest
 ```
 
 ## Environment Variables
 
-| Variable              | Description | Default | Required |
-|-----------------------|-------------|---------|----------|
-| `PY_CONNECT_TEST_URL` | URL to test connectivity to | `https://ifconfig.me` | No |
-| `WEBHOOK_URL`         | Webhook URL for alerts | `http://prometheus.local` | No |
-| `PAYLOAD_FILE_PATH`   | Path to JSON payload file for webhooks | `/tmp/payload.json` | No |
+| Variable              | Description | Default                   | Required |
+|-----------------------|-------------|---------------------------|----------|
+| `PY_CONNECT_TEST_URL` | URL to test connectivity to | `https://ntfy.me`         | Yes      |
+| `WEBHOOK_URL`         | Webhook URL for alerts | `http://prometheus.local` | No       |
+| `PAYLOAD_FILE_PATH`   | Path to JSON payload file for webhooks | `/app/src/py_connect_test/templates/alertmanager-payload.json` | No       |
 
 
 ## Project Structure
