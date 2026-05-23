@@ -35,4 +35,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/ /app/src/
 
-CMD ["python", "src/py_connect_test/main.py"]
+ENTRYPOINT ["python", "src/py_connect_test/main.py"]
+CMD ["test"]
